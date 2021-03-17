@@ -27,7 +27,7 @@ while True:
     # creates a cv2 window to show webcam feed
     cv.imshow("Capture", frame)
     
-    pressed_key = cv.waitkey(1)
+    pressed_key = cv.waitKey(1)
     
     if pressed_key == ord('q'): # if user presses 'q' it closes cv windows and leaves the while loop
         cv.destroyAllWindows() 
