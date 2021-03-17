@@ -27,17 +27,19 @@ while True:
     # creates a cv2 window to show webcam feed
     cv.imshow("Capture", frame)
     
-    if cv.waitKey(1) == ord('q'): # if user presses 'q' it closes cv windows and leaves the while loop
+    pressed_key = cv.waitkey(1)
+    
+    if pressed_key == ord('q'): # if user presses 'q' it closes cv windows and leaves the while loop
         cv.destroyAllWindows() 
         break
 
-    elif cv.waitKey(1) == ord('p'): # if p the program saves the current frame to the positives folder
+    elif pressed_key == ord('p'): # if p the program saves the current frame to the positives folder
         positive_count += 1 # increments number of files created assuming files are not overwritten
         cv.imwrite('positives/{}.jpg'.format(positive_count), frame)
 
         print("Positives captured: " + str(positive_count)) # tells user how many positives they have created
 
-    elif cv.waitKey(1) == ord('n'): # if n the program saves the current frame to the negatives folder
+    elif pressed_key == ord('n'): # if n the program saves the current frame to the negatives folder
         negative_count += 1 # increments number of files created assuming files are not overwritten
         cv.imwrite('negatives/{}.jpg'.format(negative_count), frame)
  
