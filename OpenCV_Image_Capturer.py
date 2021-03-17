@@ -27,7 +27,7 @@ def imageCapturer():
     positive_count = len(os.listdir("positives"))
     negative_count = len(os.listdir("negatives"))
 
-    print("Press P to capture a positive, N to capture a negative, and Q to quit")
+    print("Press P to capture a positive, N to capture a negative, and Q to quit to just format negative image descriptions")
     while True:
         # reads the current frame from the webcam
         ret, frame = cap.read()
@@ -38,19 +38,19 @@ def imageCapturer():
         # creates a cv2 window to show webcam feed
         cv.imshow("Capture", frame)
     
-        char = cv.waitKey(1)
+        pressed_key = cv.waitKey(1)
 
-        if char == ord('q'): # if user presses 'q' it closes cv windows and leaves the while loop
+        if pressed_key == ord('q'): # if user presses 'q' it closes cv windows and leaves the while loop
             cv.destroyAllWindows() 
             break
 
-        elif char == ord('p'): # if p the program saves the current frame to the positives folder
+        elif pressed_key == ord('p'): # if p the program saves the current frame to the positives folder
             positive_count += 1 # increments number of files created assuming files are not overwritten
             cv.imwrite('positives/{}.jpg'.format(prefix + str(positive_count)), frame)
 
             print("Positives captured: " + str(positive_count)) # tells user how many positives they have created
 
-        elif char == ord('n'): # if n the program saves the current frame to the negatives folder
+        elif pressed_key == ord('n'): # if n the program saves the current frame to the negatives folder
             negative_count += 1 # increments number of files created assuming files are not overwritten
             cv.imwrite('negatives/{}.jpg'.format(prefix + str(negative_count)), frame)
  
