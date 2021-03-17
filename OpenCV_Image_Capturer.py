@@ -1,5 +1,5 @@
 import cv2 as cv
-import random, string, os
+import os
 
 cap = cv.VideoCapture(0)
 
