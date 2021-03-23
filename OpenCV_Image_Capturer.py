@@ -5,7 +5,7 @@ cap = cv.VideoCapture(0)
 BB_coordinates = [] # bounding box coordinates list, [top left corner, bottom right corner] - # needed for creating samples later
 
 def getImageLabel():
-    return input("Enter your name and the object you will be capturing/handling (in the format 'objectName'): ")
+    return input("Enter your name and the gesture you will be capturing/handling (in the format 'gestureName'): ")
     
 
 # ensures that images can be placed into correct folders
@@ -13,8 +13,8 @@ def generateDirectories():
     try: 
         os.mkdir("{}_data".format(prefix))
         try:
-            os.mkdir("{}_data/{}_positives".format(prefix, prefix))
-            os.mkdir("{}_data/{}_negatives".format(prefix, prefix))
+            os.mkdir("{}_data/positives".format(prefix))
+            os.mkdir("{}_data/negatives".format(prefix))
             print("Image directories created")
         except OSError as error:
             print("Image directories found")
@@ -26,17 +26,17 @@ def generateDirectories():
 # generates description for each negative image in the required format - https://docs.opencv.org/4.2.0/dc/d88/tutorial_traincascade.html
 def generateNegativesDescription():
     with open("{}_data/negativesDescription.txt".format(prefix),"w") as f:
-        files = os.listdir("{0}_data/{0}_negatives".format(prefix))
+        files = os.listdir("{0}_data/negatives".format(prefix))
         for file in files:
-            f.write("{}_negatives/".format(prefix) + file + "\n")
+            f.write("negatives/".format(prefix) + file + "\n")
     f.close()
 
 # procedure to capture positive and negative images
 def imageCapturer():
 
     # gets current amount of files - also assigns an ID to each file created later, avoiding overwriting
-    positive_count = len(os.listdir("{}_data/{}_positives".format(prefix, prefix)))
-    negative_count = len(os.listdir("{}_data/{}_negatives".format(prefix, prefix)))
+    positive_count = len(os.listdir("{}_data/positives".format(prefix)))
+    negative_count = len(os.listdir("{}_data/negatives".format(prefix)))
 
     print("""Press P to capture a positive
 N to capture a negative
@@ -59,13 +59,13 @@ Q to quit""")
 
         elif pressed_key == ord('p'): # if p the program saves the current frame to the positives folder
             positive_count += 1 # increments number of files created assuming files are not overwritten
-            cv.imwrite('{0}_data/{0}_positives/{1}.jpg'.format(prefix, prefix + str(positive_count)), frame)
+            cv.imwrite('{0}_data/positives/{1}.jpg'.format(prefix, prefix + str(positive_count)), frame)
 
             print("Positives captured: " + str(positive_count)) # tells user how many positives they have created
 
         elif pressed_key == ord('n'): # if n the program saves the current frame to the negatives folder
             negative_count += 1 # increments number of files created assuming files are not overwritten
-            cv.imwrite('{0}_data/{0}_negatives/{1}.jpg'.format(prefix, prefix + str(negative_count)), frame)
+            cv.imwrite('{0}_data/negatives/{1}.jpg'.format(prefix, prefix + str(negative_count)), frame)
  
             print("Negatives captured: " + str(negative_count)) # tells user how many negatives they have created
     
@@ -108,8 +108,8 @@ def positiveAnnotation():
 
 
 
-
 def main():
+
     userQuit = False
 
     while userQuit == False:
@@ -133,3 +133,4 @@ def main():
     
 
 main()
+
