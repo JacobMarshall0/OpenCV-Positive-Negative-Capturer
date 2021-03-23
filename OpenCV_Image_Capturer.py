@@ -5,7 +5,7 @@ cap = cv.VideoCapture(0)
 BB_coordinates = [] # bounding box coordinates list, [top left corner, bottom right corner] - # needed for creating samples later
 
 def getImageLabel():
-    return input("Enter your name and the gesture you will be capturing (in the format 'gestureName'): ")
+    return input("Enter your name and the gesture you will be capturing/handling (in the format 'gestureName'): ")
     
 
 # ensures that images can be placed into correct folders
@@ -110,14 +110,26 @@ def positiveAnnotation():
 
 
 def main():
-    global prefix
-    prefix = getImageLabel()
-    generateDirectories()
-    if input("Enter 'C' to enter Image Capturer mode: ") == "C":
-        imageCapturer()
-    generateNegativesDescription()
-    #if input("Enter 'A' to enter annotation mode: ") == "A":
-        #positiveAnnotation()
+    userQuit = False
+
+    while userQuit == False:
+        global prefix
+        prefix = getImageLabel()
+
+        if prefix is not "":
+            generateDirectories()
+
+            if input("Enter 'C' to enter Image Capturer mode: ") == "C":
+                imageCapturer()
+                generateNegativesDescription()
+
+            #if input("Enter 'A' to enter annotation mode: ") == "A":
+                #positiveAnnotation()
+        else:
+            print("Enter a label")
+
+        if input("Enter Q to quit or nothing to capture more images: ") == "Q":
+            userQuit = True
     
 
 main()
