@@ -116,7 +116,7 @@ def main():
         global prefix
         prefix = getImageLabel()
 
-        if prefix is not "":
+        if prefix != "":
             generateDirectories()
 
             if input("Enter 'C' to enter Image Capturer mode: ") == "C":
