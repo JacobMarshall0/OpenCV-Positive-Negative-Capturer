@@ -5,7 +5,7 @@ cap = cv.VideoCapture(0)
 BB_coordinates = [] # bounding box coordinates list, [top left corner, bottom right corner] - # needed for creating samples later
 
 def getImageLabel():
-    return input("Enter your name and the gesture you will be capturing/handling (in the format 'gestureName'): ")
+    return input("Enter your name and the object you will be capturing/handling (in the format 'objectName'): ")
     
 
 # ensures that images can be placed into correct folders
